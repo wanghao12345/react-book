@@ -22,8 +22,8 @@ class Header extends React.Component {
                     <NavSearch />
                 </Nav>
                 <Addition>
-                    <Button>注册</Button>
-                    <Button>写文章</Button>
+                    <Button className='writting'>写文章</Button>
+                    <Button className='reg'>注册</Button>
                 </Addition>
             </HeaderWrapper>
         )

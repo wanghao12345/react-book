@@ -70,12 +70,19 @@ export const Addition = styled.div`
 `;
 
 export const Button = styled.div`
-    float: right;
+    float: left;
     margin-top: 9px;
     line-height: 38px;
     border-radius: 19px;
     padding: 0 20px;
-    border: 1px solid #ec6149
+    border: 1px solid rgba(236,97,73,.7);
     margin-right: 20px;
+    &.reg {
+        color: #ec6149;
+    }
+    &.writting {
+        color: #fff;
+        background: #ec6149;
+    }
 `;
 
