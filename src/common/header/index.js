@@ -1,4 +1,5 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
 import {
     HeaderWrapper,
@@ -11,17 +12,7 @@ import {
     SearchWrapper
 } from "./style";
 
-class Header extends React.Component {
-
-    constructor (props) {
-        super(props)
-        this.state = {
-            focused: false
-        }
-        this.handleInputFocus = this.handleInputFocus.bind(this)
-        this.handleInputBlur = this.handleInputBlur.bind(this)
-    }
-
+/*class Header extends React.Component {
     render() {
         return (
             <HeaderWrapper>
@@ -35,17 +26,17 @@ class Header extends React.Component {
                     </NavItem>
                     <SearchWrapper>
                         <CSSTransition
-                            in={this.state.focused}
+                            in={this.props.focused}
                             timeout={200}
                             classNames='slide'
                         >
                             <NavSearch
-                                className={this.state.focused ? 'focused' : ''}
-                                onFocus={this.handleInputFocus}
-                                onBlur={this.handleInputBlur}
+                                className={this.props.focused ? 'focused' : ''}
+                                onFocus={this.props.handleInputFocus}
+                                onBlur={this.props.handleInputBlur}
                             />
                         </CSSTransition>
-                        <span className={this.state.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
+                        <span className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
                     </SearchWrapper>
                 </Nav>
                 <Addition>
@@ -58,25 +49,78 @@ class Header extends React.Component {
             </HeaderWrapper>
         )
     }
+}*/
 
-    /**
-     * 搜索框鼠标聚焦
-     */
-    handleInputFocus () {
-        this.setState({
-            focused: true
-        })
-    }
-
-    /**
-     * 搜索框离焦
-     */
-    handleInputBlur () {
-        this.setState({
-            focused: false
-        })
-    }
-
+// 由于该组件没有使用状态，即可以使用函数表示（优点：速度快）
+const Header = (props) => {
+    return (
+        <HeaderWrapper>
+            <Logo />
+            <Nav>
+                <NavItem className='left active'>首页</NavItem>
+                <NavItem className='left'>下载App</NavItem>
+                <NavItem className='right'>登录</NavItem>
+                <NavItem className='right'>
+                    <span className="iconfont">&#xe636;</span>
+                </NavItem>
+                <SearchWrapper>
+                    <CSSTransition
+                        in={props.focused}
+                        timeout={200}
+                        classNames='slide'
+                    >
+                        <NavSearch
+                            className={props.focused ? 'focused' : ''}
+                            onFocus={props.handleInputFocus}
+                            onBlur={props.handleInputBlur}
+                        />
+                    </CSSTransition>
+                    <span className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
+                </SearchWrapper>
+            </Nav>
+            <Addition>
+                <Button className='writting'>
+                    <span className="iconfont">&#xe616;</span>
+                    写文章
+                </Button>
+                <Button className='reg'>注册</Button>
+            </Addition>
+        </HeaderWrapper>
+    )
 }
 
-export default Header
+
+/**
+ * 将仓库的state映射到props(获取state)
+ * @param state
+ */
+const mapStateToProps = (state) => {
+    return {
+        focused: state.focused
+    }
+}
+
+/**
+ *  改变state
+ * @param dispatch
+ */
+const mapDispatchToProps = (dispatch) => {
+    return {
+        // 聚焦
+        handleInputFocus () {
+            const action = {
+                type: 'search_focus'
+            }
+            dispatch(action)
+        },
+        // 离焦
+        handleInputBlur () {
+            const action = {
+                type: 'search_blur'
+            }
+            dispatch(action)
+        }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header)
