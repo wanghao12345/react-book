@@ -101,7 +101,7 @@ const mapStateToProps = (state) => {
 }
 
 /**
- *  改变state
+ *  将dispatch映射到props(改变state)
  * @param dispatch
  */
 const mapDispatchToProps = (dispatch) => {
