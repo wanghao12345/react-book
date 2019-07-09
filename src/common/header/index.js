@@ -1,6 +1,7 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group'
+import { actionCreators }  from './store'
 import {
     HeaderWrapper,
     Logo,
@@ -108,17 +109,23 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // 聚焦
         handleInputFocus () {
-            const action = {
-                type: 'search_focus'
-            }
-            dispatch(action)
+            // const action = {
+            //     type: 'search_focus'
+            // }
+            // dispatch(action)
+
+            // 使用actionCreators
+            dispatch(actionCreators.searchFocus())
         },
         // 离焦
         handleInputBlur () {
-            const action = {
-                type: 'search_blur'
-            }
-            dispatch(action)
+            // const action = {
+            //     type: 'search_blur'
+            // }
+            // dispatch(action)
+
+            // 使用actionCreators
+            dispatch(actionCreators.searchBlur())
         }
     }
 }
