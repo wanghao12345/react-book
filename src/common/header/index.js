@@ -43,7 +43,7 @@ class Header extends React.Component {
                             />
                         </CSSTransition>
                         <span className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
-                        { this.getListArea(this.props.focused) }
+                        { this.getListArea() }
                     </SearchWrapper>
                 </Nav>
                 <Addition>
@@ -60,8 +60,8 @@ class Header extends React.Component {
     /**
      * 热门搜索
      */
-    getListArea (show) {
-        if (show) {
+    getListArea () {
+        if (this.props.focused) {
             return (
                 <SearchInfo>
                     <SearchInfoTitle>
@@ -71,14 +71,11 @@ class Header extends React.Component {
                         </SearchInfoSwitch>
                     </SearchInfoTitle>
                     <SearchInfoList>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>区块链</SearchInfoItem>
-                        <SearchInfoItem>小程序</SearchInfoItem>
-                        <SearchInfoItem>vue</SearchInfoItem>
+                        {
+                            this.props.list.map((item) => {
+                                return <SearchInfoItem key={item}>{item}</SearchInfoItem>
+                            })
+                        }
                     </SearchInfoList>
                 </SearchInfo>
             )
@@ -94,7 +91,8 @@ class Header extends React.Component {
  */
 const mapStateToProps = (state) => {
     return {
-        focused: state.getIn(['header', 'focused'])
+        focused: state.getIn(['header', 'focused']),
+        list: state.getIn(['header', 'list'])
     }
 }
 
