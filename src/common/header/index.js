@@ -10,7 +10,12 @@ import {
     NavSearch,
     Addition,
     Button,
-    SearchWrapper
+    SearchWrapper,
+    SearchInfo,
+    SearchInfoTitle,
+    SearchInfoSwitch,
+    SearchInfoItem,
+    SearchInfoList
 } from "./style";
 
 /*class Header extends React.Component {
@@ -77,6 +82,7 @@ const Header = (props) => {
                         />
                     </CSSTransition>
                     <span className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
+                    { getListArea(props.focused) }
                 </SearchWrapper>
             </Nav>
             <Addition>
@@ -88,6 +94,38 @@ const Header = (props) => {
             </Addition>
         </HeaderWrapper>
     )
+}
+
+/**
+ * 获取热门搜索
+ * @param show
+ * @returns {null|*}
+ */
+const getListArea = (show) => {
+    if (show) {
+        return (
+            <SearchInfo>
+                <SearchInfoTitle>
+                    热门搜索
+                    <SearchInfoSwitch>
+                        换一批
+                    </SearchInfoSwitch>
+                </SearchInfoTitle>
+                <SearchInfoList>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>区块链</SearchInfoItem>
+                    <SearchInfoItem>小程序</SearchInfoItem>
+                    <SearchInfoItem>vue</SearchInfoItem>
+                </SearchInfoList>
+            </SearchInfo>
+        )
+    } else {
+        return null
+    }
 }
 
 
