@@ -18,7 +18,7 @@ import {
     SearchInfoList
 } from "./style";
 
-/*class Header extends React.Component {
+class Header extends React.Component {
     render() {
         return (
             <HeaderWrapper>
@@ -43,6 +43,7 @@ import {
                             />
                         </CSSTransition>
                         <span className={this.props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
+                        { this.getListArea(this.props.focused) }
                     </SearchWrapper>
                 </Nav>
                 <Addition>
@@ -55,79 +56,37 @@ import {
             </HeaderWrapper>
         )
     }
-}*/
 
-// 由于该组件没有使用状态，即可以使用函数表示（优点：速度快）
-const Header = (props) => {
-    return (
-        <HeaderWrapper>
-            <Logo />
-            <Nav>
-                <NavItem className='left active'>首页</NavItem>
-                <NavItem className='left'>下载App</NavItem>
-                <NavItem className='right'>登录</NavItem>
-                <NavItem className='right'>
-                    <span className="iconfont">&#xe636;</span>
-                </NavItem>
-                <SearchWrapper>
-                    <CSSTransition
-                        in={props.focused}
-                        timeout={200}
-                        classNames='slide'
-                    >
-                        <NavSearch
-                            className={props.focused ? 'focused' : ''}
-                            onFocus={props.handleInputFocus}
-                            onBlur={props.handleInputBlur}
-                        />
-                    </CSSTransition>
-                    <span className={props.focused ? 'focused iconfont' : 'iconfont'}>&#xe60c;</span>
-                    { getListArea(props.focused) }
-                </SearchWrapper>
-            </Nav>
-            <Addition>
-                <Button className='writting'>
-                    <span className="iconfont">&#xe616;</span>
-                    写文章
-                </Button>
-                <Button className='reg'>注册</Button>
-            </Addition>
-        </HeaderWrapper>
-    )
-}
-
-/**
- * 获取热门搜索
- * @param show
- * @returns {null|*}
- */
-const getListArea = (show) => {
-    if (show) {
-        return (
-            <SearchInfo>
-                <SearchInfoTitle>
-                    热门搜索
-                    <SearchInfoSwitch>
-                        换一批
-                    </SearchInfoSwitch>
-                </SearchInfoTitle>
-                <SearchInfoList>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>区块链</SearchInfoItem>
-                    <SearchInfoItem>小程序</SearchInfoItem>
-                    <SearchInfoItem>vue</SearchInfoItem>
-                </SearchInfoList>
-            </SearchInfo>
-        )
-    } else {
-        return null
+    /**
+     * 热门搜索
+     */
+    getListArea (show) {
+        if (show) {
+            return (
+                <SearchInfo>
+                    <SearchInfoTitle>
+                        热门搜索
+                        <SearchInfoSwitch>
+                            换一批
+                        </SearchInfoSwitch>
+                    </SearchInfoTitle>
+                    <SearchInfoList>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>区块链</SearchInfoItem>
+                        <SearchInfoItem>小程序</SearchInfoItem>
+                        <SearchInfoItem>vue</SearchInfoItem>
+                    </SearchInfoList>
+                </SearchInfo>
+            )
+        } else {
+            return null
+        }
     }
 }
-
 
 /**
  * 将仓库的state映射到props(获取state)
@@ -135,12 +94,6 @@ const getListArea = (show) => {
  */
 const mapStateToProps = (state) => {
     return {
-        // 没有使用immutable
-        // focused: state.header.focused
-        // 使用了immutable
-        // focused: state.header.get('focused')
-        // 使用了redux-immutable(两种写法均可)
-        // focused: state.get('header').get('focused')
         focused: state.getIn(['header', 'focused'])
     }
 }
@@ -153,22 +106,11 @@ const mapDispatchToProps = (dispatch) => {
     return {
         // 聚焦
         handleInputFocus () {
-            // const action = {
-            //     type: 'search_focus'
-            // }
-            // dispatch(action)
-
-            // 使用actionCreators
+            dispatch(actionCreators.getList())
             dispatch(actionCreators.searchFocus())
         },
         // 离焦
         handleInputBlur () {
-            // const action = {
-            //     type: 'search_blur'
-            // }
-            // dispatch(action)
-
-            // 使用actionCreators
             dispatch(actionCreators.searchBlur())
         }
     }
