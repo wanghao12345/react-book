@@ -97,7 +97,10 @@ const Header = (props) => {
  */
 const mapStateToProps = (state) => {
     return {
-        focused: state.header.focused
+        // 没有使用immutable
+        // focused: state.header.focused
+        // 使用了immutable
+        focused: state.header.get('focused')
     }
 }
 
