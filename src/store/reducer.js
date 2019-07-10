@@ -1,4 +1,7 @@
-import { combineReducers } from 'redux'
+// 没有使用redux-immutable
+// import { combineReducers } from 'redux'
+// 使用了redux-immutable
+import { combineReducers } from 'redux-immutable'
 import { reducer as headerReducer } from '../common/header/store'
 
 

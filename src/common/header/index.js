@@ -100,7 +100,10 @@ const mapStateToProps = (state) => {
         // 没有使用immutable
         // focused: state.header.focused
         // 使用了immutable
-        focused: state.header.get('focused')
+        // focused: state.header.get('focused')
+        // 使用了redux-immutable(两种写法均可)
+        // focused: state.get('header').get('focused')
+        focused: state.getIn(['header', 'focused'])
     }
 }
 
