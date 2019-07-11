@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React from 'react';
+import { connect } from "react-redux";
 import {
     TopicWrapper,
     TopicItem
@@ -9,13 +9,23 @@ class Topic extends React.Component {
     render() {
         return (
             <TopicWrapper>
-                <TopicItem>
-                    <img className='topic-pic' src="" alt=""/>
-                    社会热点
-                </TopicItem>
+                {
+                    this.props.list.map((item) => {
+                        return (
+                            <TopicItem key={item.get('id')}>
+                                <img className='topic-pic' src="" alt=""/>
+                                {item.get('title')}
+                            </TopicItem>
+                        )
+                    })
+                }
             </TopicWrapper>
         )
     }
 }
 
-export default Topic
+const mapState = (state) => ({
+    list: state.getIn(['home', 'topicList'])
+})
+
+export default connect(mapState, null)(Topic)
