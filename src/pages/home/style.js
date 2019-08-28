@@ -21,6 +21,19 @@ export const HomeRight = styled.div`
     float: right;
     padding-top: 30px;
 `;
+export const BannerWrapper = styled.div`
+    width: 625px;
+    height: 270px;
+    background: red;
+    border-radius: 5px;
+    overflow: hidden;
+    .swiper-container{
+        .swiper-slide{
+            width: 625px;
+            height: 270px;
+        }
+    }
+`;
 export const TopicWrapper = styled.div`
     padding: 20px 0 10px 0;
     overflow: hidden;
